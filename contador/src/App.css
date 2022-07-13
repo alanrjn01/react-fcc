@@ -24,6 +24,7 @@ html,body{
     margin: 20px;
 }
 .logo{
+    cursor: pointer;
     height: 69px;
 }
 
@@ -36,4 +37,7 @@ html,body{
     align-items: center;
     justify-content: center;
     
+}
+h1{
+    font-size: 5rem;
 }

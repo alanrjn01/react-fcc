@@ -2,13 +2,17 @@ import React from 'react'
 import '../estilos/boton.css'
 
 //usando desestructuración de las props para obtener texto
-function Boton({texto,manejarClic}) {
+function Boton({texto,manejarClic,timer}) {
   return (
-    <button 
+    <div>
+      <button 
         className={texto==='Clic' ? 'boton-clic' : 'boton-reinicio'}
         onClick={manejarClic}>
         {texto}
     </button>
+    </div>
+    
+    
   )
 }
 
