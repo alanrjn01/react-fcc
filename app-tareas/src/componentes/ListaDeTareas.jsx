@@ -1,17 +1,52 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import TareaFormulario from './TareaFormulario'
+import Tarea from './Tarea'
 import '../estilos/ListaDeTareas.css'
 
 function ListaDeTareas() {
-    const [tarea,setTareas] = useState([])
- 
-        return (
-    <>
-        <TareaFormulario></TareaFormulario>
-        <div className='tareas-lista-contenedor'>
+    const [tareasLocalStorage,setTareasLocalStorage] = useState([])
+    
+    const agregarTarea = (tarea) => {
+        if(tarea.texto.trim()){
+            tarea.texto = tarea.texto.trim()
+            const tareasActualizadas = [tarea,...JSON.parse(localStorage.getItem('tareas'))]
+            setTareasLocalStorage(tareasActualizadas)
+            localStorage.setItem('tareas',JSON.stringify(tareasActualizadas))
+        }
+        
+    }
 
-        </div>
-    </>
+    const eliminarTarea = (id) => {
+        const tareasActualizadas = tareasLocalStorage.filter(tarea => tarea.id !==id)
+        localStorage.setItem('tareas',JSON.stringify(tareasActualizadas))
+        setTareasLocalStorage(tareasActualizadas)
+    }
+
+    const completarTarea = (id) => {
+        const tareasActualizadas = tareasLocalStorage.map(tarea =>{
+            if(tarea.id === id){
+                tarea.completada = !tarea.completada
+            }
+            return tarea
+        })
+        localStorage.setItem('tareas',JSON.stringify(tareasActualizadas))
+        setTareasLocalStorage(tareasActualizadas)
+    }
+
+    
+     useEffect(()=>{
+        setTareasLocalStorage(JSON.parse(localStorage.getItem('tareas')))
+     },[])
+
+        return (
+        <>
+            <TareaFormulario onSubmit={agregarTarea}/>
+            <div className='tareas-lista-contenedor'>
+                {tareasLocalStorage.map((tarea)=>(
+                    <Tarea key={tarea.id} id={tarea.id} texto={tarea.texto} completada={tarea.completada} completarTarea={completarTarea} eliminarTarea={eliminarTarea}/>
+                ))}
+            </div>
+        </>
   )
 }
 
