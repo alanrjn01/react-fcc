@@ -33,7 +33,8 @@ function ListaDeTareas() {
         setTareasLocalStorage(tareasActualizadas)
     }
 
-    
+    //utilizo useEffect para actualizar el estado de la página obteniendo del localstorage el array de tareas
+    //y setteandolo en TareasLocalStorage
      useEffect(()=>{
         setTareasLocalStorage(JSON.parse(localStorage.getItem('tareas')))
      },[])

@@ -19,10 +19,7 @@ function TareaFormulario(props) {
     }
     props.onSubmit(tareaNueva)
   }
-
   
-
-
   return (
     <form className='tarea-formulario' onSubmit={manejarEnvio}>
         <input type="text" className='tarea-input' placeholder='ingrese una tarea' name='texto' onChange={manejarCambio} />
